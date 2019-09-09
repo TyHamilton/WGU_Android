@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -59,49 +58,56 @@ public class CoursesActivity extends AppCompatActivity {
 
         ArrayList<Course> cTemp = MainActivity.courses;
         Button[] but = new Button[cTemp.size()];
-//      ArrayList<String> menT = new ArrayList<>();
-        /*
-        This section creates buttons to display all course data and the mentors with one phone number.
-         */
+      ArrayList<String> menT = new ArrayList<>();
         for(int i = 0; i<cTemp.size(); i++){
-           final Course target = cTemp.get(i);
+            Course target = cTemp.get(i);
 
             but[i]=new Button(this);
-            int size =0;
-            try {
-            size = target.getMentors().size();
+            for(int a = 0; a<target.getMentors().size();a++){
+                Mentor men = target.getMentors().get(i);
+                String ment="";
 
-            }catch (Exception e){
+                String name = men.getName();
+
+                ment += " Mentor: "+ name+"\n";;
+                for(int p = 0; p<target.getMentors().size();p++){
+
+                    ArrayList<String> ph= men.getPhone();
+                    String phone = ph.get(p);
+                    ment += " Phone: "+ phone + "\n";
+                    for(int e = 0; e<target.getMentors().size();e++){
+
+                        ArrayList<String> em = men.getEmail();
+                        String email = em.get(e);
+                        ment+= " Email: "+ email+"\n";
+
+
+                    }
+
+                }
+                menT.add(ment);
 
             }
-            Log.d("ment size", ""+size);
 
-
-         String cText = "Course: " + target.getcTitle()+"\n\n"+ " Start: "+ target.getcStart()+ " Anticipated End: "+target.getcAEnd()+"\n";
-
+        String cText = "Course: " + target.getcTitle()+"\n\n"+ " Start: "+ target.getcStart()+ " Anticipated End: "+target.getcAEnd()+"\n";
+//            if(target.getPerformanceBool().equals("true")){
+//                cText+= "\n"+ "Performance: " + target.getPerformance()+ "\n";
+//            }
+//            if(target.getOjbectiveBool().equals("true")){
+//                cText+= "\n"+ "Objective: "+ target.getOjbective()+ "\n";
+//            }
 
             cText+= "\n"+" Status: "+ target.getStatus()+"\n";
 
-            ArrayList<Mentor> ments= target.getMentors();
-            for(int m =0; m<ments.size();m++){
-                Mentor men = ments.get( m );
-                if(men.getPhone().get( 0 )!=null)
-                cText+= "\n Mentor: "+ men.getName() +" Phone: "+ men.getPhone().get( 0 );
-
-
+            for(int j = 0; j<menT.size(); j++){
+                cText+= "\n"+ menT.get(j);
             }
+
+
 
 
 
             but[i].setText(cText);
-            but[i].setOnClickListener(
-                    new Button.OnClickListener() {
-                        public void onClick(View v) {
-                            courseAdd(target);
-                        }
-                    }
-            );
-
             tb.addView( but[i]);
 
 
@@ -118,17 +124,8 @@ public class CoursesActivity extends AppCompatActivity {
     }
     public void courseAdd(){
         Intent terMov = new Intent(this,CourseDataActivity.class);
-        terMov.putExtra( "update", false );
-        UIData.setCourseUpdate( false );
-        startActivity(terMov);
-    }
-    public void courseAdd(Course cor){
-        UIData.setSlectedCourse( cor );
-        Intent terMov = new Intent(this,CourseDataActivity.class);
-        terMov.putExtra( "update", true);
-        UIData.setCourseUpdate( true );
-        startActivity(terMov);
-    }
 
+        startActivity(terMov);
+    }
 
 }

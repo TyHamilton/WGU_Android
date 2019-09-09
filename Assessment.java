@@ -1,7 +1,6 @@
 package com.example.ty.javaap_c196;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import static com.example.ty.javaap_c196.StubSQL.ASSESSMENT_ALERT;
 import static com.example.ty.javaap_c196.StubSQL.ASSESSMENT_CID;
@@ -28,7 +27,7 @@ public class Assessment {
 
 
     public ContentValues assessmentData(Assessment asse){
-        Log.d( "LoadingDataTosave" , "Starting..." );
+
         ContentValues values= new ContentValues();
         values.put(ASSESSMENT_CID,asse.getcIDa());
         values.put(ASSESSMENT_TITLE, asse.getATitle());

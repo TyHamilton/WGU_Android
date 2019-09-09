@@ -61,7 +61,7 @@ public class MentDataActivity extends AppCompatActivity {
         toolbar.setTitle( "Add/Edit Mentor: " );
 
         setSupportActionBar( toolbar );
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         update = getIntent().getExtras().getBoolean("update");
 
         theFile=new DataHandler(this);
@@ -367,8 +367,6 @@ public class MentDataActivity extends AppCompatActivity {
                 mainScreen();
                 return true;
 
-            default:
-                mentorScreen();
         }
 //        Toast.makeText(this,item.getItemId(),Toast.LENGTH_LONG).show();
         return true;
@@ -377,7 +375,7 @@ public class MentDataActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        update= false;
+
         loaded=false;
     }
 }

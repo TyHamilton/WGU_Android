@@ -1,6 +1,5 @@
 package com.example.ty.javaap_c196;
 import android.content.ContentValues;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,7 @@ public class Term {
             String cour = "%"+ buffCourse.get(i).getcID()+"!";
             buff+=cour;
         }
-        Log.d("save courses as: ", buff);
+
         ContentValues values= new ContentValues();
 
         values.put(TERM_TITLE, ter.getTitle());
@@ -83,7 +82,7 @@ public class Term {
 
 
     public void setCourses(ArrayList<Course> cBuff) {
-        this.courses = cBuff;
+        this.courses = courses;
     }
     public int gettID() {
         return tID;

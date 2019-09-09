@@ -1,6 +1,5 @@
 package com.example.ty.javaap_c196;
 import android.content.ContentValues;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -49,30 +48,27 @@ public class Course {
     public ContentValues courseData(Course cor){
         String buff= "";
         ArrayList<Mentor> buffMent= cor.getMentors();
-        Log.d("courseSaveMent", ""+buffMent.size());
-        for(int i = 0 ; i<buffMent.size();i++){
+        for(int i = 0 ; i<cor.getMentors().size();i++){
             String ment = "%"+buffMent.get(i).getmID()+"!";
-            Log.d("courSData: ", ment);
             buff +=ment ;
 
         }
-
         String buff2 ="";
         ArrayList<Assessment> buffMen2= cor.getAssesssment();
-        for(int i = 0 ; i<cor.getAssesssment().size();i++){
+        for(int i = 0 ; i<cor.getMentors().size();i++){
             String asses = "%"+buffMen2.get(i).getaID()+"!";
             buff2 +=asses ;
 
         }
 
-//        if(buff.length()>0){
-//            buff = "%0!";
-//
-//        }
-//        if(buff2.length()>0){
-//            buff2="%0!";
-//        }
-        Log.d("courFinSave", buff);
+        if(buff.length()>0){
+            buff = "%0!";
+
+        }
+        if(buff2.length()>0){
+            buff2="%0!";
+        }
+
         ContentValues values= new ContentValues();
         values.put(COURSE_TITLE,cor.getcTitle());
         values.put(COURSE_START,cor.getcStart());
@@ -122,8 +118,8 @@ public class Course {
     public ArrayList<Mentor> getMentors() {
         return mentors;
     }
-    public void setMentors(ArrayList<Mentor> mentorsN) {
-        this.mentors = mentorsN;
+    public void setMentors(ArrayList<Mentor> mentors) {
+        this.mentors = mentors;
     }
 
 

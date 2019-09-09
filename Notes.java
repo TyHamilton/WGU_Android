@@ -1,7 +1,6 @@
 package com.example.ty.javaap_c196;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -14,14 +13,11 @@ import static com.example.ty.javaap_c196.StubSQL.NOTES_NOTE;
  */
 
 public class Notes {
-    private ArrayList<String> notes = new ArrayList<>(  );
+    private ArrayList<String> notes ;
     private int nID;//id for note
     private  int course;//id for course
 
-    Notes(){
-
-//        notes.add( "" );
-    }
+    Notes(){}
 
     public ContentValues notesData(Notes no){
         ContentValues values= new ContentValues();
@@ -31,8 +27,8 @@ public class Notes {
 
         }
 
-        Log.d( "theCoursePacked",""+ no.getCourse() );
-        //values.put(NOTES_ID,no.getnID() );
+
+        values.put(NOTES_ID,no.getnID() );
         values.put(NOTES_NOTE,noter);
         values.put(NOTES_COURSE,no.getCourse());
 

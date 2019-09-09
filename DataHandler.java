@@ -97,26 +97,21 @@ public class DataHandler {
     public void saveNote(Notes no, boolean update){
         ContentValues v = no.notesData(no);
         if(update){
-            Log.d( "SaveNoteTofile", "updating.." );
             String nID=Integer.toString(no.getnID());
             mDatabase.update(TABLE_NOTES,v,NOTES_ID+"=?", new String[]{nID});
         }else{
-            Log.d( "SaveNoteTofile", "saving.." );
-            Log.d( "theCourse",""+ no.getCourse() );
             mDatabase.insert(TABLE_NOTES,null,v);
         }
 
     }
 
 
-    public void saveAsse(Assessment asse, boolean update){
+    public void saveNote(Assessment asse, boolean update){
         ContentValues v = asse.assessmentData(asse);
         if(update){
-            Log.d( "Start Save Assess", "Starting..." );
             String aID=Integer.toString(asse.getaID());
             mDatabase.update(TABLE_ASSESSMENT,v,ASSESSMENT_ID+"=?", new String[]{aID});
         }else{
-            Log.d( "Start Save NAssess", "Starting..." );
             mDatabase.insert(TABLE_ASSESSMENT,null,v);
         }
 
@@ -191,17 +186,13 @@ public class DataHandler {
             Course cour = new Course();
             ArrayList<Mentor> mBuff = new ArrayList<>();
             if(dbPull.getString(5).length()>0){
-                Log.d("Sending ment data", "sending..");
                 ArrayList<String> buff = unpackerString(dbPull.getString(5));
-                Log.d( "Buff is: ", ""+buff.size() );
                 for(int i = 0; i<buff.size();i++){
                     int check= Integer.parseInt(buff.get(i));
 
                     for(int j = 0; j<MainActivity.mentors.size();j++){
-                        Log.d( "MentV", ""+MainActivity.mentors.get(j).getmID()+" v " +check );
                         if(MainActivity.mentors.get(j).getmID()==check){
                             mBuff.add(MainActivity.mentors.get(j));
-                            Log.d("MentorADD: ",MainActivity.mentors.get(j).getName() );
                         }
                     }
 
@@ -247,19 +238,15 @@ public class DataHandler {
     //load courses first this method pulls data and creates new term classes in an array in main
     public void createTerm(){
         Cursor dbPull = getTerm();
-        Log.d( "creatingTerm", "loading...");
+
         if(dbPull.getCount()==0){return;}
-        Log.d( "creatingTerm", "loading...");
         while(dbPull.moveToNext()){
 //            ArrayList<String> buff=new ArrayList<>();
             ArrayList<Course> cBuff = new ArrayList<>();
-            Log.d( "creatingTerm", "loading...");
-            if(true
-//                    dbPull.getString(4).length()>
-                    ) {
-                Log.d( "creatingTerm", "loading...");
+
+            if(dbPull.getString(4).length()>0) {
                 ArrayList<String>   buff = unpackerString(dbPull.getString(4));
-                Log.d( "sentCourseData", ""+ buff.size());
+
                 for (int i = 0; i < buff.size(); i++) {
                     String check = buff.get(i);
                     int check1= Integer.parseInt(check);
@@ -345,7 +332,6 @@ public class DataHandler {
         }
         for(int i =0; i < start.size();i++){
             String buff = pack.substring(start.get(i)+1,end.get(i));
-            Log.d("Unpacked :",buff);
             unpacked.add(buff);
 
         }
@@ -359,8 +345,8 @@ public class DataHandler {
     //delete data
     public void deleteCourse(int courseN){
 
+        mDatabase.execSQL("DELETE FROM "+TABLE_COURSE+" WHERE "+COURSE_TITLE + "=\""+ courseN+"\";" );
 
-        mDatabase.execSQL("DELETE FROM "+TABLE_COURSE+" WHERE "+COURSE_ID + " = "+ courseN );
 
     }
 
@@ -369,7 +355,7 @@ public class DataHandler {
     public void deleteTerm(int termD){
 
 
-        mDatabase.execSQL("DELETE FROM "+TABLE_TERM+" WHERE "+TERM_ID + " = "+ termD);
+        mDatabase.execSQL("DELETE FROM "+TABLE_TERM+" WHERE "+TERM_ID + "=\""+ termD+"\";" );
 
 
     }
@@ -388,7 +374,7 @@ public class DataHandler {
     public void deleteNote(int noteD){
 
 
-        mDatabase.execSQL("DELETE FROM "+TABLE_NOTES+" WHERE "+NOTES_ID + "= "+ noteD );
+        mDatabase.execSQL("DELETE FROM "+TABLE_NOTES+" WHERE "+NOTES_ID + "=\""+ noteD+"\";" );
 
 
     }
@@ -397,7 +383,7 @@ public class DataHandler {
     public void deleteAssessment(int assesD){
 
 
-        mDatabase.execSQL("DELETE FROM "+TABLE_ASSESSMENT+" WHERE "+ASSESSMENT_ID + "= "+ assesD);
+        mDatabase.execSQL("DELETE FROM "+TABLE_ASSESSMENT+" WHERE "+ASSESSMENT_ID + "=\""+ assesD+"\";" );
 
     }
 

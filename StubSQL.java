@@ -40,9 +40,9 @@ public class StubSQL extends SQLiteOpenHelper{
     private static final String TABLE_CREATE_COURSE =
             "CREATE TABLE " + TABLE_COURSE + " (" +
                     COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COURSE_TITLE+" TEXT, "+
-                    COURSE_START  + "  TEXT, " +
-                    COURSE_AENDATE + "  TEXT, " +
+                    COURSE_TITLE+" TEXT ,"+
+                    COURSE_START  + "  TEXT," +
+                    COURSE_AENDATE + "  TEXT," +
                     COURSE_STATUS + " TEXT, "+
                     COURSE_MENTORS + " TEXT, "+
                     COURSE_ASSESSMENT+ " TEXT, "+

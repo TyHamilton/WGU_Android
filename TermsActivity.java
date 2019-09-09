@@ -28,7 +28,6 @@ public class TermsActivity extends AppCompatActivity {
         tool.setTitle("Terms: ");
         tool.setVisibility(View.VISIBLE);
         tool.setLayoutParams(layoutParams);
-
         setSupportActionBar(tool);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -62,21 +61,11 @@ public class TermsActivity extends AppCompatActivity {
         ArrayList<Term> tm = MainActivity.terms;
         Button[] but = new Button[tm.size()];
         for(int i =0; i<tm.size();i++){
-           final Term target = tm.get(i);
+            Term target = tm.get(i);
             String tText = "Term: "+target.getTitle()+"\n"+" Start : "+ target.getStart()+ " End: "+ target.getEnd();
 
         but[i]= new Button(this);
         but[i].setText(tText);
-        but[i].setOnClickListener(
-                new Button.OnClickListener(){
-                    public void onClick(View v){
-                       UIData.setSelectedTerm( target );
-                        termEdit();
-
-                    }
-
-                }
-        );
         tb.addView(but[i]);
         }
 
@@ -87,15 +76,9 @@ public class TermsActivity extends AppCompatActivity {
 
     public void termAdd(){
         Intent terMov = new Intent(this,TermDataActivity.class);
-        terMov.putExtra( "update",false );
-        startActivity(terMov);
-    }
-    public void termEdit(){
-        Intent terMov = new Intent(this,TermDataActivity.class);
-        terMov.putExtra( "update",true );
-        startActivity(terMov);
-    }
 
+        startActivity(terMov);
+    }
 
 
 }
